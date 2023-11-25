@@ -1,0 +1,32 @@
+
+
+class Solution{
+    
+    // arr: input array
+    // n: size of array
+    // Function to find the trapped water between the blocks.
+    static long trappingWater(int arr[], int n) { 
+        if (n <= 2) {
+            return 0; // Trapping water is not possible with less than 3 blocks
+        }
+
+        long result = 0;
+
+        int left = 0, right = n - 1;
+        int leftMax = 0, rightMax = 0;
+
+        while (left < right) {
+            if (arr[left] < arr[right]) {
+                leftMax = Math.max(leftMax, arr[left]);
+                result += Math.max(0, leftMax - arr[left]);
+                left++;
+            } else {
+                rightMax = Math.max(rightMax, arr[right]);
+                result += Math.max(0, rightMax - arr[right]);
+                right--;
+            }
+        }
+
+        return result;
+    } 
+}
