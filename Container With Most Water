@@ -1,0 +1,32 @@
+class Solve{
+    
+    long maxArea(int A[], int len){
+         // Initialize pointers at the beginning and end of the array
+        int left = 0, right = len - 1;
+        
+        // Initialize variable to store the maximum area
+        long maxArea = 0;
+        
+        while (left < right) {
+            // Calculate the width of the container
+            int width = right - left;
+            
+            // Calculate the height of the container (minimum of the two lines)
+            int height = Math.min(A[left], A[right]);
+            
+            // Update the maximum area if the current container has a larger area
+            maxArea = Math.max(maxArea, (long) width * height);
+            
+            // Move the pointers towards each other
+            if (A[left] < A[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        
+        return maxArea;
+        
+    }
+    
+}
