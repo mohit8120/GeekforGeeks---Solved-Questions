@@ -1,0 +1,33 @@
+class Solution
+{    
+    //Function is to check whether two strings are anagram of each other or not.
+    public static boolean isAnagram(String a,String b)
+    {
+                // Check if the lengths of the strings are different
+        if (a.length() != b.length()) {
+            return false;
+        }
+
+        // Convert strings to character arrays
+        char[] charArrayA = a.toCharArray();
+        char[] charArrayB = b.toCharArray();
+
+        // Sort the character arrays
+        Arrays.sort(charArrayA);
+        Arrays.sort(charArrayB);
+
+        // Compare the sorted arrays
+        return Arrays.equals(charArrayA, charArrayB);
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        String str1 = "act";
+        String str2 = "tac";
+
+        boolean result = isAnagram(str1, str2);
+
+        // Print the result
+        System.out.println("Are \"" + str1 + "\" and \"" + str2 + "\" anagrams? " + result);
+    }
+}
