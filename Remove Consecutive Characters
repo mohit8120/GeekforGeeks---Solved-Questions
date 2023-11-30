@@ -1,0 +1,24 @@
+
+class Solution{
+    public String removeConsecutiveCharacter(String S){
+        StringBuilder result = new StringBuilder();
+
+        // Handling the case of an empty string
+        if (S.length() == 0) {
+            return result.toString();
+        }
+
+        // Adding the first character to the result
+        result.append(S.charAt(0));
+
+        // Iterating through the string starting from the second character
+        for (int i = 1; i < S.length(); i++) {
+            // If the current character is different from the previous one, add it to the result
+            if (S.charAt(i) != S.charAt(i - 1)) {
+                result.append(S.charAt(i));
+            }
+        }
+
+        return result.toString();
+    }
+}
