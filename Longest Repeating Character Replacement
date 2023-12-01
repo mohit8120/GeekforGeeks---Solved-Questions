@@ -1,7 +1,7 @@
 
 class Solution {
     static int characterReplacement(String S, int K) {
-         int maxLength = 0;
+        int maxLength = 0;
         int maxCount = 0;
         int start = 0;
 
