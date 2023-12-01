@@ -1,0 +1,29 @@
+
+class Solution {
+    static int characterReplacement(String S, int K) {
+         int maxLength = 0;
+        int maxCount = 0;
+        int start = 0;
+
+        int[] charCount = new int[26]; // Assuming only uppercase English letters
+
+        for (int end = 0; end < S.length(); end++) {
+            char currentChar = S.charAt(end);
+            charCount[currentChar - 'A']++;
+            maxCount = Math.max(maxCount, charCount[currentChar - 'A']);
+
+            // If the length of the substring between start and end is greater than
+            // (end - start + 1 - maxCount), we need to reduce the length by performing
+            // operations (K).
+            if (end - start + 1 - maxCount > K) {
+                charCount[S.charAt(start) - 'A']--;
+                start++;
+            }
+
+            // Update the maxLength with the current substring length.
+            maxLength = Math.max(maxLength, end - start + 1);
+        }
+
+        return maxLength;
+    }
+}
