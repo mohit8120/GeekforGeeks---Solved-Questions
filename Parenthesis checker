@@ -1,0 +1,33 @@
+class Solution
+{
+    //Function to check if brackets are balanced or not.
+    static boolean ispar(String x)
+    {
+        // Creating a stack to store opening brackets
+        Stack<Character> stack = new Stack<>();
+
+        // Iterating through each character in the expression
+        for (char c : x.toCharArray()) {
+            // If the current character is an opening bracket, push it onto the stack
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else {
+                // If the stack is empty, there is no matching opening bracket
+                if (stack.isEmpty()) {
+                    return false;
+                }
+
+                // Pop the top element from the stack
+                char top = stack.pop();
+
+                // Checking if the popped bracket matches the current closing bracket
+                if (c == ')' && top != '(' || c == '}' && top != '{' || c == ']' && top != '[') {
+                    return false;
+                }
+            }
+        }
+
+        // If the stack is empty at the end, all brackets are balanced
+        return stack.isEmpty();
+    }
+}
