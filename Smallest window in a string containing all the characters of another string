@@ -1,0 +1,78 @@
+
+class Solution
+{
+    //Function to find the smallest window in the string s consisting
+    //of all the characters of string p.
+    public static String smallestWindow(String s, String p)
+    {
+        int sLen = s.length();
+        int pLen = p.length();
+
+        // Check if the length of the string S is less than the length of P.
+        if (sLen < pLen) {
+            return "-1";
+        }
+
+        // Initialize character frequency maps for strings S and P.
+        Map<Character, Integer> pFreqMap = new HashMap<>();
+        Map<Character, Integer> sFreqMap = new HashMap<>();
+
+        // Populate the frequency map for string P.
+        for (char ch : p.toCharArray()) {
+            pFreqMap.put(ch, pFreqMap.getOrDefault(ch, 0) + 1);
+        }
+
+        // Variables to track the minimum window.
+        int minLen = Integer.MAX_VALUE;
+        int minStart = 0;
+        int count = 0;  // Count of characters matched.
+
+        // Sliding window pointers.
+        int start = 0;
+        int end = 0;
+
+        // Iterate through the string S.
+        while (end < sLen) {
+            char currentChar = s.charAt(end);
+
+            // Update frequency map for string S.
+            sFreqMap.put(currentChar, sFreqMap.getOrDefault(currentChar, 0) + 1);
+
+            // Check if the current character is part of the string P and the count is still valid.
+            if (pFreqMap.containsKey(currentChar) && sFreqMap.get(currentChar) <= pFreqMap.get(currentChar)) {
+                count++;
+            }
+
+            // If all characters of string P are matched, try to minimize the window.
+            while (count == pLen) {
+                // Update minimum window if smaller.
+                if (end - start + 1 < minLen) {
+                    minLen = end - start + 1;
+                    minStart = start;
+                }
+
+                char startChar = s.charAt(start);
+
+                // Update frequency map and count.
+                sFreqMap.put(startChar, sFreqMap.get(startChar) - 1);
+                if (pFreqMap.containsKey(startChar) && sFreqMap.get(startChar) < pFreqMap.get(startChar)) {
+                    count--;
+                }
+
+                // Move the start pointer to try to find a smaller window.
+                start++;
+            }
+
+            // Move the end pointer to expand the window.
+            end++;
+        }
+
+        // Check if a valid window was found.
+        if (minLen == Integer.MAX_VALUE) {
+            return "-1";
+        }
+
+        // Return the smallest window.
+        return s.substring(minStart, minStart + minLen);
+    }
+}
