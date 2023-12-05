@@ -1,0 +1,39 @@
+
+
+//User function Template for Java
+
+class Solution{
+    static boolean match(String wild, String pattern)
+    {
+        int m = wild.length();
+        int n = pattern.length();
+
+        // Create a DP matrix to store the match results
+        boolean[][] dp = new boolean[m + 1][n + 1];
+
+        // Empty pattern matches empty wild
+        dp[0][0] = true;
+
+        // Handle the case when wild string is empty
+        for (int i = 1; i <= m; i++) {
+            if (wild.charAt(i - 1) == '*') {
+                dp[i][0] = dp[i - 1][0];
+            }
+        }
+
+        // Build the DP matrix
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                // If characters match or wild has '?', move diagonally
+                if (wild.charAt(i - 1) == pattern.charAt(j - 1) || wild.charAt(i - 1) == '?') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (wild.charAt(i - 1) == '*') {
+                    // '*' can match with 0 or more characters
+                    dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
+}
