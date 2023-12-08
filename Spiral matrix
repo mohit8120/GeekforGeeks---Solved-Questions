@@ -1,0 +1,61 @@
+class Solution
+{
+   
+	public int findK(int a[][], int n, int m, int k)
+	{
+	    // Initialize variables to keep track of the boundaries of the spiral
+        int top = 0, bottom = n - 1, left = 0, right = m - 1;
+        
+        // Variable to keep track of the total number of elements visited
+        int count = 0;
+        
+        while (top <= bottom && left <= right)
+        {
+            // Traverse the top row
+            for (int i = left; i <= right; i++)
+            {
+                count++;
+                if (count == k)
+                    return a[top][i];
+            }
+            top++;
+            
+            // Traverse the right column
+            for (int i = top; i <= bottom; i++)
+            {
+                count++;
+                if (count == k)
+                    return a[i][right];
+            }
+            right--;
+            
+            // Traverse the bottom row
+            if (top <= bottom)
+            {
+                for (int i = right; i >= left; i--)
+                {
+                    count++;
+                    if (count == k)
+                        return a[bottom][i];
+                }
+                bottom--;
+            }
+            
+            // Traverse the left column
+            if (left <= right)
+            {
+                for (int i = bottom; i >= top; i--)
+                {
+                    count++;
+                    if (count == k)
+                        return a[i][left];
+                }
+                left++;
+            }
+        }
+        
+        // Code will not reach here if matrix is non-empty
+        return -1;
+	}
+	
+}
