@@ -1,0 +1,49 @@
+class Solution
+{
+    public boolean isWordExist(char[][] board, String word)
+    {
+        if (board == null || board.length == 0 || board[0].length == 0 || word == null || word.length() == 0) {
+            return false;
+        }
+
+        int m = board.length;
+        int n = board[0].length;
+        char[] wordArray = word.toCharArray();
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (searchWord(board, i, j, wordArray, 0)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean searchWord(char[][] board, int i, int j, char[] word, int index) {
+        if (index == word.length) {
+            return true; // All characters in the word are found
+        }
+
+        int m = board.length;
+        int n = board[0].length;
+
+        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != word[index]) {
+            return false; // Out of bounds or mismatch
+        }
+
+        char original = board[i][j];
+        board[i][j] = '#'; // Mark the cell as visited
+
+        // Explore the neighbors in all four directions
+        boolean found = searchWord(board, i + 1, j, word, index + 1)
+                || searchWord(board, i - 1, j, word, index + 1)
+                || searchWord(board, i, j + 1, word, index + 1)
+                || searchWord(board, i, j - 1, word, index + 1);
+
+        board[i][j] = original; // Backtrack by restoring the original value
+
+        return found;
+    }
+}
