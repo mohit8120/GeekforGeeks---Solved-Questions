@@ -1,0 +1,36 @@
+class Solution
+{
+    //Function to arrange all letters of a string in lexicographical 
+    //order using Counting Sort.
+    public static String countSort(String arr)
+    {
+        // Assuming the input string only contains lowercase English letters.
+        int[] count = new int[26];
+
+        // Counting the occurrences of each letter.
+        for (int i = 0; i < arr.length(); i++) {
+            char ch = arr.charAt(i);
+            count[ch - 'a']++;
+        }
+
+        // Constructing the sorted string.
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < 26; i++) {
+            char ch = (char) ('a' + i);
+            while (count[i] > 0) {
+                result.append(ch);
+                count[i]--;
+            }
+        }
+
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        String input = "cba";
+        String sortedString = countSort(input);
+        System.out.println("Original String: " + input);
+        System.out.println("Sorted String: " + sortedString);
+    }
+}
