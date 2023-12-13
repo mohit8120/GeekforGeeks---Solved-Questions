@@ -1,0 +1,38 @@
+
+class Solution
+{
+    long countTriplets(long arr[], int n,int sum)
+    {
+        // Sorting the array
+        Arrays.sort(arr);
+
+        long count = 0;
+
+        for (int i = 0; i < n - 2; i++)
+        {
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right)
+            {
+                long tripletSum = arr[i] + arr[left] + arr[right];
+
+                // If the sum is less than the given value,
+                // then all triplets with arr[i] will be valid,
+                // so add the count and move the left pointer to the right
+                if (tripletSum < sum)
+                {
+                    count += right - left;
+                    left++;
+                }
+                // If the sum is greater or equal, move the right pointer to the left
+                else
+                {
+                    right--;
+                }
+            }
+        }
+
+        return count;
+    }
+}
