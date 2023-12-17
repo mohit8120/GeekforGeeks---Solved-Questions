@@ -1,0 +1,64 @@
+class Solution{
+    public static int kthSmallest(int[] arr, int l, int r, int k) 
+    { 
+        // If k is smaller than number of elements in array
+        if (k > 0 && k <= r - l + 1) {
+            // Partition the array and get the position of the pivot element
+            int pos = randomPartition(arr, l, r);
+
+            // If the position is the same as k
+            if (pos - l == k - 1) {
+                return arr[pos];
+            }
+
+            // If the position is more, recur for the left subarray
+            if (pos - l > k - 1) {
+                return kthSmallest(arr, l, pos - 1, k);
+            }
+
+            // Else recur for the right subarray
+            return kthSmallest(arr, pos + 1, r, k - pos + l - 1);
+        }
+
+        // If k is out of the array bounds, return -1 or any suitable value
+        return -1;
+    }
+
+    private static int randomPartition(int[] arr, int l, int r) {
+        int n = r - l + 1;
+        int pivotIndex = new Random().nextInt(n);
+        swap(arr, l + pivotIndex, r);
+        return partition(arr, l, r);
+    }
+
+    private static int partition(int[] arr, int l, int r) {
+        int pivot = arr[r];
+        int i = l - 1;
+
+        for (int j = l; j < r; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+
+        swap(arr, i + 1, r);
+        return i + 1;
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = { 12, 3, 5, 7, 4, 19, 26 };
+        int l = 0;
+        int r = arr.length - 1;
+        int k = 3;
+
+        int result = kthSmallest(arr, l, r, k);
+        System.out.println("Kth smallest element: " + result);
+    } 
+}
