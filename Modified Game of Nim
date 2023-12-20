@@ -1,0 +1,38 @@
+class Solution{
+    static int findWinner(int n, int A[]){
+        // Calculate XOR sum of array elements
+        int xorSum = 0;
+        for (int num : A) {
+            xorSum ^= num;
+        }
+
+        // If the XOR sum is already 0, player 1 wins
+        if (xorSum == 0) {
+            return 1;
+        }
+
+        // If the total number of elements is even, Player 1 wins
+        return (n % 2 == 0) ? 1 : 2;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input the number of test cases
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            // Input the size of the array
+            int n = sc.nextInt();
+
+            // Input the array elements
+            int[] A = new int[n];
+            for (int i = 0; i < n; i++) {
+                A[i] = sc.nextInt();
+            }
+
+            // Find and print the winner for each test case
+            System.out.println(findWinner(n, A));
+        }
+    }
+}
