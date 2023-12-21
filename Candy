@@ -1,0 +1,32 @@
+class Solution {
+    static int minCandy(int N, int ratings[]) {
+        if (N == 0) {
+            return 0;
+        }
+
+        int[] candies = new int[N];
+        Arrays.fill(candies, 1); // Initially, assign one candy to each child
+
+        // Iterate from left to right
+        for (int i = 1; i < N; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                candies[i] = candies[i - 1] + 1; // Increment candies if the current child has a higher rating than the left neighbor
+            }
+        }
+
+        // Iterate from right to left
+        for (int j = N - 2; j >= 0; j--) {
+            if (ratings[j] > ratings[j + 1]) {
+                candies[j] = Math.max(candies[j], candies[j + 1] + 1); // Increment candies if the current child has a higher rating than the right neighbor
+            }
+        }
+
+        // Sum up the candies array
+        int totalCandies = 0;
+        for (int candy : candies) {
+            totalCandies += candy;
+        }
+
+        return totalCandies;
+    }
+}
