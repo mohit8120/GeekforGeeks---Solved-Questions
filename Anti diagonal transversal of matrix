@@ -1,0 +1,35 @@
+class Solution
+{
+    public int[] antiDiagonalPattern(int[][] matrix)
+    {
+        HashMap<Integer,List<Integer>> map = new HashMap<>();
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int total = row * col ;
+        int req[] = new int [total];
+    
+        for(int i = 0 ; i<row;i++){
+            for(int j = 0;j<col;j++){
+                int key = i+j;
+                if(map.get(key)!=null){
+                    map.get(key).add(matrix[i][j]);
+                } else {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(matrix[i][j]);
+                    map.put(i+j,list);
+                }
+            }
+        }
+        int i = 0 ;
+        for(Map.Entry<Integer,List<Integer>> m : map.entrySet()){
+            List<Integer> temp = m.getValue();
+            for(int j = 0;j<temp.size();j++){
+                req[i++] = temp.get(j);
+            }
+        }
+        
+        return req;
+        
+
+    }
+}
