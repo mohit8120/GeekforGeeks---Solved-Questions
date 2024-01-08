@@ -1,0 +1,44 @@
+class GfG
+{
+    Node mergeResult(Node node1, Node node2)
+    {
+	// Your code here	
+	Node head = new Node(0);
+        Node next = head.next;
+        while (node1!=null && node2!=null) {
+            if(node1.data<node2.data){
+                Node newNode = new Node(node1.data);
+                head.next = newNode;
+                newNode.next = next;
+                next = head.next;
+                node1 = node1.next;
+            }else{
+                Node newNode = new Node(node2.data);
+                head.next = newNode;
+                newNode.next = next;
+                next = head.next;
+                node2 = node2.next;
+            }
+        }
+        
+        if(node1!= null){
+            while(node1!=null){
+                Node newNode = new Node(node1.data);
+                head.next = newNode;
+                newNode.next = next;
+                next = head.next;
+                node1 = node1.next;
+            }
+        }
+        if(node2!=null){
+            while(node2!=null){
+                Node newNode = new Node(node2.data);
+                head.next = newNode;
+                newNode.next = next;
+                next = head.next;
+                node2 = node2.next;
+            }
+        }
+        return head.next;
+    }
+}
